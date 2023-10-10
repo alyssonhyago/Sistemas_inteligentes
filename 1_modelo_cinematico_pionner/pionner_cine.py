@@ -42,7 +42,7 @@ if clientID!=-1:
     # Lembrar de habilitar o 'Real-time mode'
     startTime=time.time()
     lastTime = startTime
-    while t < 10:
+    while t < 3:
         
         now = time.time()
         dt = now - lastTime
