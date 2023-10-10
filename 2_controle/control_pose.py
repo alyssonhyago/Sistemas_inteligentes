@@ -19,8 +19,9 @@ if clientID!=-1:
     returnCode, robotRightMotorHandle = sim.simxGetObjectHandle(clientID, robotname + '_rightMotor', sim.simx_opmode_oneshot_wait)
         
     # Goal configuration (x, y, theta)
-    qgoal = np.array([2, -2, np.deg2rad(90)])
-    #qgoal = np.array([-2, -4, np.deg2rad(180)])
+    #qgoal = np.array([2, -2, np.deg2rad(90)])
+    #qgoal = np.array([1, -3, np.deg2rad(45)])
+    qgoal = np.array([-3, -4, np.deg2rad(120)])
     
     # Frame que representa o Goal
     returnCode, goalFrame = sim.simxGetObjectHandle(clientID, 'Goal', sim.simx_opmode_oneshot_wait)     
@@ -46,20 +47,20 @@ if clientID!=-1:
         alpha = normalizeAngle(-robotConfig[2] + np.arctan2(dy,dx))
         beta = normalizeAngle(qgoal[2] - np.arctan2(dy,dx))
         
-        kr = 4 / 20
-        ka = 8 / 20
-        kb = -1.5 / 20
+        #kv>-kw, kw>0, kv>-2/3
+        kv = 0.2
+        kw = 0.4   
         
         # Alvo na parte de trás
         if abs(alpha) > np.pi/2:
-            kr = -kr       
+            kv = -kv       
             
             # Se não ajustar a direção muda
-            #alpha = normalizeAngle(alpha-np.pi)
-            #beta = normalizeAngle(beta-np.pi)
+            alpha = normalizeAngle(alpha-np.pi)
+            beta = normalizeAngle(beta-np.pi)
         
-        v = kr*rho
-        w = ka*alpha + kb*beta
+        v = kv*rho
+        w = kw*alpha 
         
         # Limit v,w to +/- max
         v = max(min(v, maxv), -maxv)

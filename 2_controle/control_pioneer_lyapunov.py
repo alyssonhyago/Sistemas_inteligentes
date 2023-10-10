@@ -20,8 +20,8 @@ if clientID!=-1:
         
     # Goal configuration (x, y, theta)
     #qgoal = np.array([2, -2, np.deg2rad(90)])
-    #qgoal = np.array([1, -3, np.deg2rad(45)])
-    qgoal = np.array([-3, -4, np.deg2rad(120)])
+    qgoal = np.array([1, -3, np.deg2rad(45)])
+    #qgoal = np.array([-3, -4, np.deg2rad(120)])
     
     # Frame que representa o Goal
     returnCode, goalFrame = sim.simxGetObjectHandle(clientID, 'Goal', sim.simx_opmode_oneshot_wait)     
@@ -47,9 +47,7 @@ if clientID!=-1:
         alpha = normalizeAngle(-robotConfig[2] + np.arctan2(dy,dx))
         beta = normalizeAngle(qgoal[2] - np.arctan2(dy,dx))
         
-       # kr = 4 / 20
-        #ka = 8 / 20
-        #kb = -1.5 / 20
+       
 
         gamma =0.2 # 0.2
         h=1.375 #0.375
